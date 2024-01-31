@@ -1,0 +1,75 @@
+/* @import '../../constants.js'; */
+
+body {
+    font-family: "Segoe UI";
+    margin: 0;
+    padding: 0;
+}
+#background {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: linear-gradient(243deg, #FFE7D0 0%, #FFF4EB 48%, #F3E2FD 100%);
+}
+
+#bookImg {
+    width: 450.84px;
+    height: 341.47px;
+    transform: rotate(2deg);
+    flex-shrink: 0;
+    opacity: 0.6;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+#title {
+    color: #BF6D9A;
+    font-size: 128px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0px;
+    text-align: left;
+    margin-left: 20px;
+}
+
+#subText {
+    color: #4D2557;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: left;
+    margin: 0px;
+    margin-left: 20px;
+}
+
+#startButton {
+    width: 200px;
+    height: 65px;
+    flex-shrink: 0;
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+    background-color: #BF6D9A;
+    border: none;
+    border-radius: 37px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 20px;
+    margin-right: 20px;
+
+    transition: background-color 0.3s ease; 
+
+    &:hover {
+        background-color: #E199C0;
+    }
+}
