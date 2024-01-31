@@ -1,11 +1,14 @@
 import React from 'react';
 import './HomeScreen.css';
 import Book from '../../images/book.png';
+import { useNavigate } from 'react-router-dom';
 
 function HomeScreen() {
+    const navigate = useNavigate();
 
-    const handleClick = () => {
-        console.log("click");
+    const handleClick = (e) => {
+        e.preventDefault();
+        navigate('/LogIn');
     };
 
     return (
