@@ -1,0 +1,99 @@
+#title1 {
+    color: #BF6D9A;
+    font-size: 128px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0px;
+    margin-left: 70px;
+    margin-top: 30px;
+}
+
+#input-container {
+    position: absolute;
+    top: 34%;
+    left: 34%;
+}
+
+input {
+    width: 450px;
+    height: 60px;
+    color: white;
+    background-color: #F5CBFF;
+    margin-right: 10px;
+    margin-bottom: 40px;
+    text-align: left !important;
+    border: none;
+    padding: 10px !important;
+    padding-left: 60px !important;
+    border-radius: 37px;
+    font-size: 28px;
+}
+
+input::placeholder {
+    color: #ffffff;
+    font-size: 28px;
+}
+
+#userNameInput {
+    background-image: url("../../images/username_icon.png");
+    background-repeat: no-repeat;
+    background-size: 45px 45px;
+    background-position: 7px center;
+}
+
+#passwordInput {
+    background-image: url("../../images/password_icon.png");
+    background-repeat: no-repeat;
+    background-size: 45px 45px;
+    background-position: 7px center;
+}
+
+#createAccount {
+    position: absolute;
+    color: #7D7D7D;
+    text-align: right;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    bottom: 150px;
+    left: 550px;
+    cursor: pointer;
+
+    transition: color 0.3s ease; 
+
+    &:hover {
+        color: #D9D9D9;
+    }
+}
+
+#startButton1 {
+    width: 200px;
+    height: 65px;
+    flex-shrink: 0;
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+    background-color: #BF6D9A;
+    border: none;
+    border-radius: 37px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: absolute;
+    right: 41%;
+    bottom: 80px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+
+    transition: background-color 0.3s ease; 
+
+    &:hover {
+        background-color: #E199C0;
+    }
+}
