@@ -1,13 +1,23 @@
 import './LogInScreen.css';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import logInConsts from './LogInConsts';
+import apiFunction from '../../api/api';
+import apiConsts from '../../api/ApiConsts';
+import {useState} from 'react';
 
 function LogInScreen() {
     const navigate = useNavigate();
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    function checkIfuserExists(response) {
+        return (response !== apiConsts.responseNotFound && response !== undefined) ? true : false;
+    }
 
-    const handleLogInButtonClick = (e) => {
+    const handleLogInButtonClick = async (e) => {
         e.preventDefault();
-        navigate('/');
+        const body = {UserName: userName, Password: password}
+        const requestResponse = await apiFunction(apiConsts.Post, apiConsts.serverUrl + apiConsts.SignIn, body);
+        //checkIfuserExists(requestResponse) ? true : false;
     };
 
     const handleCreateAccountClick = (e) => {
@@ -17,22 +27,13 @@ function LogInScreen() {
 
     return (
         <div id="background">
-            <p id="title1">LogIn</p>
+            <p id="title1">{logInConsts.LogIn}</p>
             <div id="input-container">
-                <input
-                    id="userNameInput"
-                    placeholder="Username"
-                    className="input"
-                />
-                <input
-                    id="passwordInput"
-                    placeholder="Password"
-                    className="input"
-                    type='password'
-                />
+                <input value={userName} onChange={(e)=> setUserName(e.target.value)} id="userNameInput" placeholder="Username" className="input"/>
+                <input value={password} onChange={(e)=> setPassword(e.target.value)} id="passwordInput" placeholder="Password" className="input" type='password'/>
             </div>
-            <p id="createAccount" onClick={handleCreateAccountClick}>Press here to create account</p>
-            <button id="startButton1" onClick={handleLogInButtonClick}>Log In</button>
+            <p id="createAccount" onClick={handleCreateAccountClick}>{logInConsts.pressHere}</p>
+            <button id="startButton1" onClick={handleLogInButtonClick}>{logInConsts.LogIn}</button>
         </div>
     );
 };
