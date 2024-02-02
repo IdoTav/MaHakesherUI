@@ -13,7 +13,7 @@ function LogInAndRegisterScreen() {
 
 
     function checkIfuserAndPassword(response) {
-        return (response === apiConsts.responseOk) ? true : false;
+        return (response !== apiConsts.responseNotFound && response !== undefined) ? true : false;
     }
 
     const handleLogInButtonClick = async (e) => {
@@ -21,6 +21,8 @@ function LogInAndRegisterScreen() {
         const body = { UserName: userName, Password: password }
         const serverUrl = props.title === LogInAndRegisterScreenConsts.LogIn ? apiConsts.serverUrl + apiConsts.SignIn : apiConsts.serverUrl + apiConsts.register;
         let requestResponse = await apiFunction(apiConsts.Post, serverUrl, body);
+        if(checkIfuserAndPassword(requestResponse))
+            navigate('/PersonalPage', { state: { name: userName}});
     };
 
 

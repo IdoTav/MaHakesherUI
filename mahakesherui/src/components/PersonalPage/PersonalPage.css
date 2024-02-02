@@ -1,0 +1,85 @@
+#backArrow {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    height: 40px;
+}
+
+#title3 {
+    color: #BF6D9A;
+    font-size: 150px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0px;
+    margin-left: 70px;
+    margin-top: 30px;
+}
+
+.HistoryTitle{
+    margin-top: 10px;
+    display: flex;
+    font-size: 45px;
+    color: white;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+#title2 {
+    color: #BF6D9A;
+    font-size: 150px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    position: absolute;
+    left: 197px;
+    top: 160px;
+    margin: 0px;
+    margin-left: 70px;
+    margin-top: 30px;
+}
+
+.historyBlock {
+    position: absolute;
+    background-color: #F5CBFF;
+    height: 500px;
+    width: 550px;
+    right: 100px;
+    top: 50px;
+    border-radius: 37px;
+}
+
+
+#startButton2 {
+    width: 350px;
+    height: 65px;
+    flex-shrink: 0;
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+    background-color: #F5CBFF;
+    border: none;
+    border-radius: 37px;
+    padding-left: 40px;
+    padding-right: 40px;
+    position: absolute;
+    left: 15%;
+    bottom: 210px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+
+    transition: background-color 0.3s ease; 
+
+    &:hover {
+        background-color: #E199C0;
+    }
+}
