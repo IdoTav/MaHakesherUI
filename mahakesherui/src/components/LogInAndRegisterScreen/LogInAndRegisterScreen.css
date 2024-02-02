@@ -53,18 +53,21 @@ input::placeholder {
     background-position: 7px center;
 }
 
-#createAccount {
+#createAccountContainer {
     position: absolute;
-    color: #7D7D7D;
     text-align: right;
+    bottom: 150px;
+    left: 790px;
+    transform: translateX(-50%); /* Center the container horizontally */
+}
+
+#createAccount {
+    color: #7D7D7D;
     font-size: 36px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    bottom: 150px;
-    left: 550px;
     cursor: pointer;
-
     transition: color 0.3s ease; 
 
     &:hover {
