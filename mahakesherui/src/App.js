@@ -9,6 +9,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomeScreen />}></Route>
         <Route path='/LogIn' element={<LogInAndRegisterScreen />}></Route>
+        <Route path='/Register' element={<LogInAndRegisterScreen />}></Route>
       </Routes>
     </Router>
   );

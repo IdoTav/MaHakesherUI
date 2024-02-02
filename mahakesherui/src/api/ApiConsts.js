@@ -8,6 +8,7 @@ let apiConsts = {
     responseOk: 200,
     serverUrl : "http://localhost:5244/api/",
     SignIn : "Users/login",
+    register : "Users/register",
     contentType: "application/json",
 }
 
