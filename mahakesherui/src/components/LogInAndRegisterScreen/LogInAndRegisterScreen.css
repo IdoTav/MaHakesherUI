@@ -57,8 +57,8 @@ input::placeholder {
     position: absolute;
     text-align: right;
     bottom: 150px;
-    left: 790px;
-    transform: translateX(-50%); /* Center the container horizontally */
+    left: 785px;
+    transform: translateX(-50%); 
 }
 
 #createAccount {
@@ -89,7 +89,7 @@ input::placeholder {
     padding-right: 10px;
     position: absolute;
     right: 41%;
-    bottom: 80px;
+    bottom: 55px;
     margin-bottom: 20px;
     margin-right: 20px;
     cursor: pointer;
