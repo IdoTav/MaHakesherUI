@@ -9,19 +9,23 @@ function LogInScreen() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    function checkIfuserExists(response) {
-        return (response !== apiConsts.responseNotFound && response !== undefined) ? true : false;
+
+
+    function checkIfuserAndPassword(response) {
+        return (response === apiConsts.responseOk) ? true : false;
     }
 
     const handleLogInButtonClick = async (e) => {
         e.preventDefault();
         const body = {UserName: userName, Password: password}
         const requestResponse = await apiFunction(apiConsts.Post, apiConsts.serverUrl + apiConsts.SignIn, body);
-        //checkIfuserExists(requestResponse) ? true : false;
+        //checkIfuserAndPassword(requestResponse) ? true : false;
     };
 
     const handleCreateAccountClick = (e) => {
         e.preventDefault();
+        setUserName('');
+        setPassword('');
         navigate('/');
     };
 
@@ -29,8 +33,8 @@ function LogInScreen() {
         <div id="background">
             <p id="title1">{logInConsts.LogIn}</p>
             <div id="input-container">
-                <input value={userName} onChange={(e)=> setUserName(e.target.value)} id="userNameInput" placeholder="Username" className="input"/>
-                <input value={password} onChange={(e)=> setPassword(e.target.value)} id="passwordInput" placeholder="Password" className="input" type='password'/>
+                <input value={userName} onChange={(e) => setUserName(e.target.value)} id="userNameInput" placeholder="Username" className="input"/>
+                <input value={password} onChange={(e) => setPassword(e.target.value)} id="passwordInput" placeholder="Password" className="input" type='password'/>
             </div>
             <p id="createAccount" onClick={handleCreateAccountClick}>{logInConsts.pressHere}</p>
             <button id="startButton1" onClick={handleLogInButtonClick}>{logInConsts.LogIn}</button>

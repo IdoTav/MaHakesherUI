@@ -9,7 +9,7 @@ function HomeScreen() {
 
     const handleClick = (e) => {
         e.preventDefault();
-        navigate('/LogIn');
+        navigate(HomePageConsts.navigateLogIn);
     };
 
     return (
