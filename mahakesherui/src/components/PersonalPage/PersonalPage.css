@@ -5,6 +5,49 @@
     height: 40px;
 }
 
+.historyContainer{
+    margin-top: 10px;
+}
+
+.element {
+    margin-bottom: 45px;
+    cursor: pointer;
+    background-color: #F5CBFF;
+    border: 0;
+    &:hover .historyLastName{
+        color: black;
+    }
+    &:hover .historyFirstName{
+        color: black;
+    }
+}
+
+.arrowHistory {
+    position: relative;
+    bottom: -2.5px;
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+    width: 250px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.historyFirstName{
+    font-size: 25px;
+    margin-left: 40px;
+    color: #956C9F;
+    font-weight: bold;
+}
+
+.historyLastName {
+    position: relative;
+    font-size: 25px;
+    color: #956C9F;
+    font-weight: bold;
+}
+
 #title3 {
     color: #BF6D9A;
     font-size: 150px;
@@ -55,6 +98,7 @@
     right: 100px;
     top: 50px;
     border-radius: 37px;
+    overflow-y: auto;
 }
 
 
@@ -82,4 +126,22 @@
     &:hover {
         background-color: #E199C0;
     }
+}
+
+.historyArrowContainer {
+    position: absolute;
+    bottom: 70px;
+    left: 50px;
+}
+
+.ImageHistory {
+    height: 75px;
+    margin-right: 15px;
+}
+
+.ArrowHistory{
+    position: relative;
+    width: 150px;
+    bottom: 30px;
+    margin-right: 15px;
 }
