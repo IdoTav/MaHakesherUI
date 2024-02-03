@@ -11,6 +11,7 @@ import PersonalPageConsts from './PerosnalPageConsts';
 function PersonalPage() {
     const navigate = useNavigate();
     const userName = useLocation().state;
+    console.log(userName);
     const staticList = ["Abraham/is Connected To.Sarah/Apears In Book.Genisis/is Connected To.Daniel/is Connected To.Ido", "Abraham/is Connected To.Sarah/Apears In Book.Genisis"
         , "Abraham/is Connected To.Sarah/Apears In Book.Genisis/is Connected To.Daniel/is Connected To.Issac", "Abraham/is Connected To.Sarah/is Connected To.Daniel", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac"];
     const [showHistory, setShowHistory] = useState(false);
@@ -57,7 +58,7 @@ function PersonalPage() {
                         </button>))}
                 </div>
             </div>
-            <button id="startButton2">{PersonalPageConsts.startPlay}</button>
+            <button id="startButton2" onClick={() => navigate(PersonalPageConsts.gamePage, {state : {userName : userName.name}})}>{PersonalPageConsts.startPlay}</button>
             {showHistory ?
                 <div className='historyArrowContainer'>
                     <span className='historySectionContainer'>
@@ -65,8 +66,8 @@ function PersonalPage() {
                         <span className='nameHistory'>{peopleHistory[0]}</span>
                     </span>
                     {connectionHistory.map((item, index) => (
-                        <>
-                            <span className='historySectionContainer' key={index}>
+                        <span key={index}>
+                            <span className='historySectionContainer'>
                                 <span className='connectionHistory'>{item}</span>
                                 <img className='ArrowHistory' src={arrow} alt={`Arrow ${index}`} />
                             </span>
@@ -74,7 +75,7 @@ function PersonalPage() {
                                 <img className='ImageHistory' src={peopleHistory[index + 1] === 'Daniel' || peopleHistory[index + 1] === 'Sarah' ? woman : man} alt={`Man ${index}`} />
                                 <span className='nameHistory'>{peopleHistory[index + 1]}</span> 
                             </span>
-                        </>))}
+                        </span>))}
                 </div>
                 : ""}
         </div>

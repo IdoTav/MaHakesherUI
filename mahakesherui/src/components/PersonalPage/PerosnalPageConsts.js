@@ -1,7 +1,8 @@
 const PersonalPageConsts = {
     history : "History",
     hello : "Hello",
-    startPlay: "Start Play"
+    startPlay: "Start Play",
+    gamePage: '/GameScreen',
 };
 
 export default PersonalPageConsts;
