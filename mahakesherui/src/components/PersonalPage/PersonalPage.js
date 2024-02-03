@@ -2,14 +2,15 @@ import './PersonalPage.css';
 import backArrow from '../../images/back_arrow.png';
 import arrow from '../../images/arrow.png';
 import man from '../../images/man_pic.png'
+import woman from '../../images/woman_pic.png'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 
 function PersonalPage() {
     const userName = useLocation().state;
-    const staticList = ["Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Daniel/isConnectedTo.Ido", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis"
-        , "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac"];
+    const staticList = ["Abraham/is Connected To.Sarah/Apears In Book.Genisis/is Connected To.Daniel/is Connected To.Ido", "Abraham/is Connected To.Sarah/Apears In Book.Genisis"
+        , "Abraham/is Connected To.Sarah/Apears In Book.Genisis/is Connected To.Daniel/is Connected To.Issac", "Abraham/is Connected To.Sarah/is Connected To.Daniel", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac"];
     const [showHistory, setShowHistory] = useState(false);
     const [peopleHistory, setPeopleHistory] = useState([]);
     const [connectionHistory, setConnetionHistory] = useState([]);
@@ -57,13 +58,21 @@ function PersonalPage() {
             <button id="startButton2">Start Play</button>
             {showHistory ?
                 <div className='historyArrowContainer'>
-                        <img className='ImageHistory' src={man} alt='Man'/>
-                        {connectionHistory.map((item, index) => (
-                            <span className='historyItem' key={index}>
+                    <span className='historySectionContainer'>
+                        <img className='ImageHistory' src={peopleHistory[0] === 'Daniel'  || peopleHistory[0] === 'Sarah' ? woman : man} alt='Man' />
+                        <span className='nameHistory'>{peopleHistory[0]}</span>
+                    </span>
+                    {connectionHistory.map((item, index) => (
+                        <>
+                            <span className='historySectionContainer' key={index}>
+                                <span className='connectionHistory'>{item}</span>
                                 <img className='ArrowHistory' src={arrow} alt={`Arrow ${index}`} />
-                                <img className='ImageHistory' src={man} alt={`Man ${index}`} />
-                            </span>))}
-                            {}
+                            </span>
+                            <span className='historySectionContainer'>
+                                <img className='ImageHistory' src={peopleHistory[index + 1] === 'Daniel' || peopleHistory[index + 1] === 'Sarah' ? woman : man} alt={`Man ${index}`} />
+                                <span className='nameHistory'>{peopleHistory[index + 1]}</span> 
+                            </span>
+                        </>))}
                 </div>
                 : ""}
         </div>
