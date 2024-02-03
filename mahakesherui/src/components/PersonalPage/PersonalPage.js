@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 
 function PersonalPage() {
+    const navigate = useNavigate();
     const userName = useLocation().state;
     const staticList = ["Abraham/is Connected To.Sarah/Apears In Book.Genisis/is Connected To.Daniel/is Connected To.Ido", "Abraham/is Connected To.Sarah/Apears In Book.Genisis"
         , "Abraham/is Connected To.Sarah/Apears In Book.Genisis/is Connected To.Daniel/is Connected To.Issac", "Abraham/is Connected To.Sarah/is Connected To.Daniel", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac"];
@@ -39,7 +40,7 @@ function PersonalPage() {
 
     return (
         <div id="background">
-            <img id="backArrow" src={backArrow}></img>
+            <img id="backArrow" src={backArrow} onClick={() => navigate('/')}></img>
             <div>
                 <p id="title3">Hello</p>
                 <p id='title2'>{userName.name}</p>
