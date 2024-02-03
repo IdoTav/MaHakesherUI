@@ -5,6 +5,7 @@ import man from '../../images/man_pic.png'
 import woman from '../../images/woman_pic.png'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import PersonalPageConsts from './PerosnalPageConsts';
 
 
 function PersonalPage() {
@@ -42,11 +43,11 @@ function PersonalPage() {
         <div id="background">
             <img id="backArrow" src={backArrow} onClick={() => navigate('/')}></img>
             <div>
-                <p id="title3">Hello</p>
+                <p id="title3">{PersonalPageConsts.hello}</p>
                 <p id='title2'>{userName.name}</p>
             </div>
             <div className='historyBlock'>
-                <div className='HistoryTitle'>History</div>
+                <div className='HistoryTitle'>{PersonalPageConsts.history}</div>
                 <div className='historyContainer'>
                     {staticList.map((item, index) => (
                         <button className='element' onClick={(e) => openHistory(e, item)} key={index}>
@@ -56,7 +57,7 @@ function PersonalPage() {
                         </button>))}
                 </div>
             </div>
-            <button id="startButton2">Start Play</button>
+            <button id="startButton2">{PersonalPageConsts.startPlay}</button>
             {showHistory ?
                 <div className='historyArrowContainer'>
                     <span className='historySectionContainer'>

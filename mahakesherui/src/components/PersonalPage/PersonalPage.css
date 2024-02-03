@@ -140,8 +140,7 @@
 
 .historyArrowContainer {
     position: absolute;
-    bottom: -30px;
-    height: 150px;
+    bottom: 20px;
 }
 
 .historySectionContainer {
