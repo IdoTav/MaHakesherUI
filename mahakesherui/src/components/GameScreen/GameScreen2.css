@@ -1,0 +1,97 @@
+.GenerateContainerForGame {
+    position: absolute;
+    left: 230px;
+    top: 160px;
+}
+
+.generateImage1 {
+    width: 320px; /* Adjust the width as needed */
+    height: 320px;
+    margin-bottom: 50px;
+}
+
+.optionsContainer {
+    position: absolute;
+    width: 700px;
+    top: 70px;
+    margin-left: 15px;
+}
+
+.options {
+    width: auto;
+}
+
+.optionSelected {
+    align-self: center;
+    margin-bottom: 28px;
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+    background-color: #4D2557;
+    border: none;
+    border-radius: 37px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    top: 450px;
+    transition: background-color 0.3s ease; 
+
+    &:hover {
+        background-color: #956C9F;
+    }
+
+    &:focus {
+        background-color: #956C9F;
+    }
+}
+
+.connectionImage{
+    height: 85px;
+    margin-left: 20px;
+    margin-top: 45px;
+    margin-right: 10px;
+}
+
+.connectionBlock {
+    position: absolute;
+    background-color: #F5CBFF;
+    height: 450px;
+    width: 420px;
+    right: 180px;
+    top: 130px;
+    border-radius: 37px;
+    overflow-y: auto;
+}
+
+.connectionName{
+    position: relative;
+    top: -32px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #4D2557;
+}
+
+.hoverOnConnection {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    &:hover .connectionName{
+        color: #956C9F;
+    }
+
+    &:focus .connectionName{
+        color: #956C9F;
+    }
+
+    &:hover .connectionImage {
+        opacity: 0.8;
+    }
+
+    &:focus .connectionImage {
+        opacity: 0.8;
+    }
+
+}
+

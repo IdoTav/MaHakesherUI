@@ -14,11 +14,19 @@ function GameScreen() {
     const [isHiddenFigure2, setIsHiddenFigure2] = useState('none');
     const [isCircle1, setIsCircle1] = useState(true);
     const [isCircle2, setIsCircle2] = useState(true);
+    const [firstFigure, setFirstFigure] = useState("Ido");
+    const [lastFigure, setLastFigure] = useState("Tal");
 
     function activateImage(e, figure, circle) {
         e.preventDefault();
         figure('block');
         circle(false);
+    }
+
+    function handleContiuneButton(e) {
+        e.preventDefault();
+        navigate('/GameScreen', { state: { firstFigure: firstFigure, lastFigure: lastFigure, userName: userName } });
+
     }
 
 
@@ -30,7 +38,7 @@ function GameScreen() {
                 <span className='GenerateColumn'>
                     <div className='figure'>Figure 1</div>
                     {isCircle1 ? <div className='circle'></div> : <img className='generateImage' src={man}></img>}
-                    <div className='nameOfFigure' style={{display : isHiddenFigure1}}>Ido</div>
+                    <div className='nameOfFigure' style={{display : isHiddenFigure1}}>{firstFigure}</div>
                     <button onClick={e => activateImage(e, setIsHiddenFigure1, setIsCircle1)} className='generateButton'>Generate</button>
                 </span>
                 <span className='GenerateCoulumn1'>
@@ -39,11 +47,11 @@ function GameScreen() {
                 <span className='GenerateColumn2'>
                     <div className='figure'>Figure 2</div>
                     {isCircle2 ? <div className='circle'></div> : <img className='generateImage' src={man}></img>}
-                    <div className='nameOfFigure' style={{display : isHiddenFigure2}}>Tal</div>
+                    <div className='nameOfFigure' style={{display : isHiddenFigure2}}>{lastFigure}</div>
                     <button onClick={e => activateImage(e, setIsHiddenFigure2, setIsCircle2)} className='generateButton'>Generate</button>
                 </span>
             </div>
-            <button onClick={e => activateImage(e, setIsHiddenFigure2, setIsCircle2)} className='continueButton'>Continue</button>
+            <button onClick={e => handleContiuneButton(e)} className='continueButton'>Continue</button>
         </div>
     );
 };

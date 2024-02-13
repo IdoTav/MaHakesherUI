@@ -9,7 +9,7 @@ function HomeScreen() {
 
     const handleClick = (e) => {
         e.preventDefault();
-        navigate(HomePageConsts.navigateLogIn, { state: { title: 'Log In', createOrAlreadyHaveAcc: 'Press here to create account' } });
+        navigate('/LogIn', { state: { title: 'Log In', createOrAlreadyHaveAcc: 'Press here to create account' } });
     };
 
     return (
