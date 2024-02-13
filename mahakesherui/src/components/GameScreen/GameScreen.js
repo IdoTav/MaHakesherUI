@@ -43,7 +43,7 @@ function GameScreen() {
                     <button onClick={e => activateImage(e, setIsHiddenFigure2, setIsCircle2)} className='generateButton'>Generate</button>
                 </span>
             </div>
-            <button className='continueButton'>Continue</button>
+            <button onClick={e => activateImage(e, setIsHiddenFigure2, setIsCircle2)} className='continueButton'>Continue</button>
         </div>
     );
 };
