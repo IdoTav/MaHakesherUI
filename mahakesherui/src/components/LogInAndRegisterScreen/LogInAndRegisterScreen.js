@@ -4,13 +4,19 @@ import LogInAndRegisterScreenConsts from './LogInAndRegisterScreenConsts';
 import apiFunction from '../../api/api';
 import apiConsts from '../../api/ApiConsts';
 import { useState } from 'react';
+import showPasswordIcon from '../../images/show_password_icon.png';
+import hidePasswordIcon from "../../images/hide_password_icon.png";
 
 function LogInAndRegisterScreen() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const props = useLocation().state
 
+    const handlePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+    };
 
     function checkIfuserAndPassword(response) {
         return (response !== apiConsts.responseNotFound && response !== undefined) ? true : false;
@@ -21,8 +27,8 @@ function LogInAndRegisterScreen() {
         const body = { UserName: userName, Password: password }
         const serverUrl = props.title === LogInAndRegisterScreenConsts.LogIn ? apiConsts.serverUrl + apiConsts.SignIn : apiConsts.serverUrl + apiConsts.register;
         let requestResponse = await apiFunction(apiConsts.Post, serverUrl, body);
-        if(checkIfuserAndPassword(requestResponse))
-            navigate('/PersonalPage', { state: { name: userName}});
+        if (checkIfuserAndPassword(requestResponse))
+            navigate('/PersonalPage', { state: { name: userName } });
     };
 
 
@@ -41,7 +47,12 @@ function LogInAndRegisterScreen() {
             <p id="title1">{props.title}</p>
             <div id="input-container">
                 <input value={userName} onChange={(e) => setUserName(e.target.value)} id="userNameInput" placeholder="Username" className="input" />
-                <input value={password} onChange={(e) => setPassword(e.target.value)} id="passwordInput" placeholder="Password" className="input" type='password' />
+                <div className='password-container'>
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} id="passwordInput" placeholder="Password" className="input" type={isPasswordVisible ? 'text' : 'password'} />
+                    <span className="password-icon" onClick={handlePasswordVisibility}>
+                        {isPasswordVisible ? <img className="hideorShowPasswordIcon" src={hidePasswordIcon} alt="" /> : <img className="hideorShowPasswordIcon" src={showPasswordIcon} alt="" />}
+                    </span>
+                </div>
             </div>
             <div id="createAccountContainer">
                 <p id="createAccount" onClick={handleCreateAccountClick}>

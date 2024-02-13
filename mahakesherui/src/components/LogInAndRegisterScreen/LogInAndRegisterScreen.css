@@ -58,7 +58,7 @@ input::placeholder {
     text-align: right;
     bottom: 150px;
     left: 785px;
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
 }
 
 #createAccount {
@@ -68,7 +68,7 @@ input::placeholder {
     font-weight: 600;
     line-height: normal;
     cursor: pointer;
-    transition: color 0.3s ease; 
+    transition: color 0.3s ease;
 
     &:hover {
         color: #D9D9D9;
@@ -94,9 +94,26 @@ input::placeholder {
     margin-right: 20px;
     cursor: pointer;
 
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
 
     &:hover {
         background-color: #E199C0;
     }
+}
+
+.password-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.password-icon {
+    float: right;
+}
+
+.hideorShowPasswordIcon {
+    width: 54px !important;
+    margin-left: -80px;
+    cursor: pointer;
+    margin-bottom: 30px;
 }
