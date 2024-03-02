@@ -19,8 +19,8 @@ function GameScreen() {
     const [isCircle2, setIsCircle2] = useState(true);
     const [firstFigure, setFirstFigure] = useState('');
     const [lastFigure, setLastFigure] = useState('');
-    const [roadPersons, setRoadPersons] = useState([]);
-    const [roadConnections, setRoadConnections] = useState([]);
+    const [road, setRoad] = useState([]);
+    
 
     const getRoad = async () => {
         const roadResponse = await apiFunction(apiConsts.Get, apiConsts.serverUrl + "Connections/GetPlayRoad?difficultyLevel=10");
@@ -28,22 +28,14 @@ function GameScreen() {
     }
 
     function parseRoad(roadResponse) {
-        const { namesAndGenders, connectionList } = Object.entries(roadResponse).reduce(
-            ({ namesAndGenders, connectionList }, [key, value]) => {
-              const [name, number] = key.split('_');
-              const [description, gender] = value.split('$$$');
-          
-              return {
-                namesAndGenders: { ...namesAndGenders, [name]: gender },
-                connectionList: [...connectionList, description],
-              };
-            },
-            { namesAndGenders: {}, connectionList: [] }
-          );
-          setRoadPersons(namesAndGenders);
-          setRoadConnections(connectionList);
-          setFirstFigure([Object.keys(namesAndGenders)[0], namesAndGenders[Object.keys(namesAndGenders)[0]]]);
-          setLastFigure([Object.keys(namesAndGenders)[Object.keys(namesAndGenders).length - 1], namesAndGenders[Object.keys(namesAndGenders)[Object.keys(namesAndGenders).length - 1]]]);
+        const parsedRoad = Object.entries(roadResponse).map(([key, value]) => {
+            const [name, number] = key.split('_');
+            const [description, gender] = value.split('$$$');
+            return [key, description, gender, name];
+          });
+          setRoad(parsedRoad);
+          setFirstFigure(parsedRoad[0]);
+          setLastFigure(parsedRoad[parsedRoad.length - 1]);
     }
 
     useEffect(() => {
@@ -62,8 +54,7 @@ function GameScreen() {
              { firstFigure: firstFigure,
                 lastFigure: lastFigure,
                 userName: userName,
-                roadConnections: roadConnections,
-                roadPersons: roadPersons 
+                road: road
             } 
         });
     }
@@ -76,8 +67,8 @@ function GameScreen() {
             <div className='GenerateContainer'>
                 <span className='GenerateColumn'>
                     <div className='figure'>Figure 1</div>
-                    {isCircle1 ? <div className='circle'></div> : <img className='generateImage' src={firstFigure[1] === 'male' ? man : female}></img>}
-                    <div className='nameOfFigure' style={{display : isHiddenFigure1}}>{firstFigure[0]}</div>
+                    {isCircle1 ? <div className='circle'></div> : <img className='generateImage' src={firstFigure[2] === 'male' ? man : female}></img>}
+                    <div className='nameOfFigure' style={{display : isHiddenFigure1}}>{firstFigure[3]}</div>
                     <button onClick={e => activateImage(e, setIsHiddenFigure1, setIsCircle1)} className='generateButton'>Generate</button>
                 </span>
                 <span className='GenerateCoulumn1'>
@@ -85,8 +76,8 @@ function GameScreen() {
                 </span>
                 <span className='GenerateColumn2'>
                     <div className='figure'>Figure 2</div>
-                    {isCircle2 ? <div className='circle'></div> : <img className='generateImage' src={lastFigure[1] === 'male' ? man : female}></img>}
-                    <div className='nameOfFigure' style={{display : isHiddenFigure2}}>{lastFigure[0]}</div>
+                    {isCircle2 ? <div className='circle'></div> : <img className='generateImage' src={lastFigure[2] === 'male' ? man : female}></img>}
+                    <div className='nameOfFigure' style={{display : isHiddenFigure2}}>{lastFigure[3]}</div>
                     <button onClick={e => activateImage(e, setIsHiddenFigure2, setIsCircle2)} className='generateButton'>Generate</button>
                 </span>
             </div>

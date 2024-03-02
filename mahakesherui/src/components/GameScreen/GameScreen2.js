@@ -5,7 +5,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import man from '../../images/man_pic.png';
 import woman from '../../images/woman_pic.png'
 import { useState, useEffect } from 'react';
-import arrow from '../../images/arrow.png'
+import arrow from '../../images/arrow.png';
+import apiFunction from '../../api/api';
+import apiConsts from '../../api/ApiConsts';
 
 function GameScreen2() {
     const userName = useLocation().state.userName;
@@ -22,6 +24,14 @@ function GameScreen2() {
         e.preventDefault();
         navigate(GameScreenConsts.personalPage, { state: { name: userName } })
     }
+
+    const getOptionsForFirstFigure = async () => {
+        const optionsResponse = await apiFunction(apiConsts.Get, apiConsts.serverUrl + 'Connections/GetOptions?personid=');
+    }
+
+    useEffect(() => {
+        getOptionsForFirstFigure();
+    })
 
     function handleClickOnConnectionFigure(e, figure) {
         e.preventDefault();

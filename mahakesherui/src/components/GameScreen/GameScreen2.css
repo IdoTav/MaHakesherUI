@@ -1,6 +1,6 @@
 .GenerateContainerForGame {
     position: absolute;
-    left: 230px;
+    left: 100px;
     top: 160px;
 }
 
@@ -59,7 +59,7 @@
     background-color: #F5CBFF;
     height: 450px;
     width: 420px;
-    right: 180px;
+    right: 120px;
     top: 130px;
     border-radius: 37px;
     overflow-y: auto;
