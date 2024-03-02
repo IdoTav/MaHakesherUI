@@ -47,6 +47,22 @@
     }
 }
 
+.hintBlock {
+    position: absolute;
+    width: 100px;
+    top: 15px;
+    right: 10px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+.hint {
+    width: 80px;
+}
+
 .connectionImage{
     height: 85px;
     margin-left: 20px;
@@ -58,7 +74,7 @@
     position: absolute;
     background-color: #F5CBFF;
     height: 450px;
-    width: 420px;
+    width: 480px;
     right: 120px;
     top: 130px;
     border-radius: 37px;
@@ -92,6 +108,60 @@
     &:focus .connectionImage {
         opacity: 0.8;
     }
-
 }
 
+.popup {
+    width: 500px;
+    height: 300px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    margin: auto;
+    background-color: #BF6D9A;
+    text-align: center;
+    color: white;
+    border-radius: 37px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.popupTitle {
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.popupText {
+    font-size: 28px;
+}
+
+.historySectionContainer {
+    cursor: pointer;
+    &:hover .ImageHistory{
+        opacity: 0.6;
+    }
+
+    &:hover .nameHistory{
+        color: #7D7D7D;
+    }
+}
+
+.historySectionContainer.oldPath {
+    &:hover .ImageHistory{
+        opacity: 1;
+    }
+
+    &:hover .nameHistory{
+        color: black;
+    }
+}
+
+.historySectionContainer.oldPath .ImageHistory {
+    opacity: 0.6;
+}
+
+.historySectionContainer.oldPath .nameHistory {
+    color: #7D7D7D;
+}

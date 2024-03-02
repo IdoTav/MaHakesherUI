@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import arrow from '../../images/arrow.png';
 import apiFunction from '../../api/api';
 import apiConsts from '../../api/ApiConsts';
+import hint from '../../images/hint_icon.png';
 
 function GameScreen2() {
     const userName = useLocation().state.userName;
@@ -23,6 +24,9 @@ function GameScreen2() {
     const [mentionedInLifeTime, setMentionedInLifeTime] = useState([]);
     const [mentionedInSameVerse, setMentionedInSameVerse] = useState([]);
     const [clickedButton, setClickedButton] = useState('');
+    const [startOver, setStartOver] = useState(false);
+    const [gameEnd, setGameEnd] = useState(false);
+
 
     function handleBackButton(e) {
         e.preventDefault();
@@ -79,14 +83,43 @@ function GameScreen2() {
 
     function handleClickOnConnectionFigure(e, figure) {
         e.preventDefault();
+        if (figure[0] === lastFigure[0]) {
+            // win
+        }
+
         const copiedArray = [...historyLists];
-        copiedArray.splice(historyLists.length - 1, 0, figure);
-        console.log(copiedArray)
+        if (copiedArray.length === 4 && copiedArray[copiedArray.length - 2][3] !== lastFigure[3]) {
+            // start over
+            copiedArray.splice(1, 2);
+            figure = copiedArray[0];
+            setStartOver(true)
+        } else {
+            copiedArray.splice(historyLists.length - 1, 0, figure);
+        }
+
+        console.log(copiedArray);
         setHistoryList(copiedArray);
         setFigureToShow(figure);
         setIsShowConnectionBlock(false);
         getOptions(figure[0]);
     }
+
+    useEffect(() => {
+        if (startOver) {
+            setTimeout(() => {
+                setStartOver(false);
+            }, 5000);
+        }
+    }, [startOver]);
+
+    useEffect(() => {
+        if (gameEnd) {
+            setTimeout(() => {
+                setGameEnd(false);
+                navigate(GameScreenConsts.personalPage, { state: { name: userName }, connection: {historyLists} })
+            }, 5000);
+        }
+    }, [gameEnd]);
 
     function handleClickOnConnection(e) {
         e.preventDefault();
@@ -103,6 +136,20 @@ function GameScreen2() {
             setConnectionList(mentionedInSameVerse);
             setClickedButton('Mentioned in same verse');
         }
+    }
+
+    function handleClickOnHistoryConnection(e, figure) {
+        e.preventDefault();
+        const copiedArray = [...historyLists];
+        const startToSplice = copiedArray.indexOf(figure) + 1
+        const numsToSplice = copiedArray.length - 1 - startToSplice
+        copiedArray.splice(startToSplice, numsToSplice);
+
+        console.log(copiedArray);
+        setHistoryList(copiedArray);
+        setFigureToShow(figure);
+        setIsShowConnectionBlock(false);
+        getOptions(figure[0]);
     }
 
     return (
@@ -122,8 +169,11 @@ function GameScreen2() {
                         </div>))}
                 </span>
             </div>
+            <div className='hintBlock'>
+                <img className='hint' src={hint}></img>
+            </div>
             <div className='historyArrowContainer'>
-                <span className='historySectionContainer'>
+                <span className={`historySectionContainer${historyLists.length > 2 ? ' oldPath' : ''}`}>
                     <img className='ImageHistory' src={historyLists[0][2] === 'male' ? man : woman} alt='Man' />
                     <span className='nameHistory'>{historyLists[0][3]}</span>
                 </span>
@@ -133,7 +183,7 @@ function GameScreen2() {
                             <span className='historySectionContainer'>
                                 <img className='ArrowHistory' src={arrow} alt={`Arrow ${index}`} />
                             </span>
-                            <span className='historySectionContainer'>
+                            <span className={`historySectionContainer${index < (historyLists.length - 2) ? ' oldPath' : ''}`} onClick={e => handleClickOnHistoryConnection(e, item)}>
                                 <img className='ImageHistory' src={item[2] === 'male' ? man : woman} alt={`Man ${index}`} />
                                 <span className='nameHistory'>{item[3]}</span>
                             </span>
@@ -148,6 +198,15 @@ function GameScreen2() {
                                 <span className='connectionName'>{clickedButton === 'Relations' ? item[1] : item[3]}</span>
                             </div>))}
                     </div>
+                </div> : ""}
+            {startOver ?
+                <div className='popup'>
+                    <div className='popupTitle'>START OVER</div>
+                    <div className='popupText'>This connection can be done with 5 steps so let's try again</div>
+                </div> : ""}
+            {gameEnd ?
+                <div className='popup'>
+                    <div className='popupTitle'>YOU WIN!</div>
                 </div> : ""}
         </div>
     );

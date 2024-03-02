@@ -23,7 +23,7 @@ function GameScreen() {
     
 
     const getRoad = async () => {
-        const roadResponse = await apiFunction(apiConsts.Get, apiConsts.serverUrl + "Connections/GetPlayRoad?difficultyLevel=10");
+        const roadResponse = await apiFunction(apiConsts.Get, apiConsts.serverUrl + "Connections/GetPlayRoad?difficultyLevel=5");
         parseRoad(JSON.parse(roadResponse));
     }
     
