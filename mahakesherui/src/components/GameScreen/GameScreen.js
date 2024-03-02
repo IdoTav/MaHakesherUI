@@ -26,7 +26,7 @@ function GameScreen() {
         const roadResponse = await apiFunction(apiConsts.Get, apiConsts.serverUrl + "Connections/GetPlayRoad?difficultyLevel=10");
         parseRoad(JSON.parse(roadResponse));
     }
-
+    
     function parseRoad(roadResponse) {
         const parsedRoad = Object.entries(roadResponse).map(([key, value]) => {
             const [name, number] = key.split('_');
