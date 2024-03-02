@@ -12,11 +12,11 @@ function GameScreen2() {
     const firstFigure = useLocation().state.firstFigure;
     const lastFigure = useLocation().state.lastFigure
     const navigate = useNavigate();
-    const [figureToShow, setFigureToShow] = useState(firstFigure);
-    const optionsList = ["Is connected to", "Appeard in a book", "Was in"];
+    const [figureToShow, setFigureToShow] = useState(firstFigure[0]);
+    const optionsList = ["Relations", "Mentioned in same life time", "Mentioned in same verse"];
     const connectionList = ["Sarah - Wife", "Issac - Son", "Ishmael - Son", "Daniel - Stupid", "Daniel - Ugly"];
     const [isShowConnectionBlock, setIsShowConnectionBlock] = useState(false);
-    const [historyLists, setHistoryList] = useState([firstFigure, lastFigure]);
+    const [historyLists, setHistoryList] = useState([firstFigure[0], lastFigure[0]]);
 
     function handleBackButton(e) {
         e.preventDefault();
