@@ -73,7 +73,7 @@ function GameScreen() {
     return (
         <div id='background'>
             <img id="backArrow" src={backArrow} onClick={() => navigate(GameScreenConsts.personalPage, { state: { name: userName } })}></img>
-            <div className='GenerateContainner'>
+            <div className='GenerateContainer'>
                 <span className='GenerateColumn'>
                     <div className='figure'>Figure 1</div>
                     {isCircle1 ? <div className='circle'></div> : <img className='generateImage' src={firstFigure[1] === 'male' ? man : female}></img>}
