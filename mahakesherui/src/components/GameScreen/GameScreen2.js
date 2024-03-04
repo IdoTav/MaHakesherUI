@@ -15,6 +15,7 @@ function GameScreen2() {
     const firstFigure = useLocation().state.firstFigure;
     const lastFigure = useLocation().state.lastFigure
     const navigate = useNavigate();
+    console.log(useLocation().state.road)
     const [figureToShow, setFigureToShow] = useState(firstFigure);
     const optionsList = ["Mentioned in same life time", "Mentioned in same verse", "Relations"];
     const [connectionList, setConnectionList] = useState([])
@@ -26,7 +27,7 @@ function GameScreen2() {
     const [clickedButton, setClickedButton] = useState('');
     const [startOver, setStartOver] = useState(false);
     const [gameEnd, setGameEnd] = useState(false);
-
+    const [fullOptions, setFullOptions] = useState([])
 
     function handleBackButton(e) {
         e.preventDefault();
@@ -63,10 +64,10 @@ function GameScreen2() {
             mentionedTogetherList: [],
         }
         );
-        setRelations(parseStartWithThe(option.startsWithTheList));
-        setMentionedInSameVerse(option.mentionedTogetherList);
-        setMentionedInLifeTime(option.mentionedList);
-
+        setRelations(parseStartWithThe(option.startsWithTheList))
+        setMentionedInLifeTime(option.mentionedList)
+        setMentionedInSameVerse(option.mentionedTogetherList)
+        setFullOptions(options)
     }
 
     const getOptions = async (personId = undefined) => {
@@ -85,6 +86,8 @@ function GameScreen2() {
         e.preventDefault();
         if (figure[0] === lastFigure[0]) {
             // win
+            setGameEnd(true)
+            return
         }
 
         const copiedArray = [...historyLists];
@@ -116,7 +119,7 @@ function GameScreen2() {
         if (gameEnd) {
             setTimeout(() => {
                 setGameEnd(false);
-                navigate(GameScreenConsts.personalPage, { state: { name: userName }, connection: {historyLists} })
+                navigate(GameScreenConsts.personalPage, { state: { name: userName }, connection: { historyLists } })
             }, 5000);
         }
     }, [gameEnd]);
@@ -138,18 +141,48 @@ function GameScreen2() {
         }
     }
 
-    function handleClickOnHistoryConnection(e, figure) {
-        e.preventDefault();
-        const copiedArray = [...historyLists];
-        const startToSplice = copiedArray.indexOf(figure) + 1
-        const numsToSplice = copiedArray.length - 1 - startToSplice
-        copiedArray.splice(startToSplice, numsToSplice);
+    function handleClickOnHistoryConnection(e, figure, index) {
+        if (!(index > historyLists.length - 2)) {
+            e.preventDefault();
+            const copiedArray = [...historyLists];
+            const startToSplice = copiedArray.indexOf(figure) + 1
+            const numsToSplice = copiedArray.length - 1 - startToSplice
+            copiedArray.splice(startToSplice, numsToSplice);
 
-        console.log(copiedArray);
-        setHistoryList(copiedArray);
-        setFigureToShow(figure);
-        setIsShowConnectionBlock(false);
-        getOptions(figure[0]);
+            console.log(copiedArray);
+            setHistoryList(copiedArray);
+            setFigureToShow(figure);
+            setIsShowConnectionBlock(false);
+            getOptions(figure[0]);
+        }
+    }
+
+    function checkMutuale(list) {
+        const notMutualeItems = []
+        for (let i = 0; i < list.length; i++) {
+            let flag = false
+            for (let j = 0; j < historyLists.length - 1; j++) {
+                if (list[i][0] === historyLists[j][0]) {
+                    flag = true
+                }
+            }
+            if (!flag) {
+                notMutualeItems.push(list[i])
+            }
+        }
+        console.log(notMutualeItems)
+        return notMutualeItems
+    }
+
+    useEffect (() => {
+        noCircle()
+    }, [fullOptions])
+
+    function noCircle() {
+        console.log(relations)
+        setRelations(checkMutuale(relations))
+        setMentionedInLifeTime(checkMutuale(mentionedInLifeTime))
+        setMentionedInSameVerse(checkMutuale(mentionedInSameVerse))
     }
 
     return (
@@ -159,7 +192,7 @@ function GameScreen2() {
             </div>
             <div className='GenerateContainerForGame'>
                 <span className='GenerateColumn'>
-                    <img className='generateImage1' src={man}></img>
+                    <img className='generateImage1' src={figureToShow[2] === 'male' ? man : woman}></img>
                     <div className='nameOfFigure'>{figureToShow[3]}</div>
                 </span>
                 <span className='optionsContainer' >
@@ -173,7 +206,7 @@ function GameScreen2() {
                 <img className='hint' src={hint}></img>
             </div>
             <div className='historyArrowContainer'>
-                <span className={`historySectionContainer${historyLists.length > 2 ? ' oldPath' : ''}`}>
+                <span className={`historySectionContainer${historyLists.length > 2 ? ' oldPath' : ' notVisited'}`} onClick={e => handleClickOnHistoryConnection(e, historyLists[0], 0)}>
                     <img className='ImageHistory' src={historyLists[0][2] === 'male' ? man : woman} alt='Man' />
                     <span className='nameHistory'>{historyLists[0][3]}</span>
                 </span>
@@ -183,7 +216,7 @@ function GameScreen2() {
                             <span className='historySectionContainer'>
                                 <img className='ArrowHistory' src={arrow} alt={`Arrow ${index}`} />
                             </span>
-                            <span className={`historySectionContainer${index < (historyLists.length - 2) ? ' oldPath' : ''}`} onClick={e => handleClickOnHistoryConnection(e, item)}>
+                            <span className={`historySectionContainer${index < (historyLists.length - 2) ? ' oldPath' : ' notVisited'}`} onClick={e => handleClickOnHistoryConnection(e, item, index)}>
                                 <img className='ImageHistory' src={item[2] === 'male' ? man : woman} alt={`Man ${index}`} />
                                 <span className='nameHistory'>{item[3]}</span>
                             </span>
@@ -194,7 +227,7 @@ function GameScreen2() {
                     <div className='connectionContainer'>
                         {connectionList.map((item, index) => (
                             <div className='hoverOnConnection' onClick={e => handleClickOnConnectionFigure(e, item)} key={index}>
-                                <img className='connectionImage' src={man}></img>
+                                <img className='connectionImage' src={item[2] === 'male' ? man : woman}></img>
                                 <span className='connectionName'>{clickedButton === 'Relations' ? item[1] : item[3]}</span>
                             </div>))}
                     </div>

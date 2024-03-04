@@ -137,18 +137,8 @@
     font-size: 28px;
 }
 
-.historySectionContainer {
-    cursor: pointer;
-    &:hover .ImageHistory{
-        opacity: 0.6;
-    }
-
-    &:hover .nameHistory{
-        color: #7D7D7D;
-    }
-}
-
 .historySectionContainer.oldPath {
+    cursor: pointer;
     &:hover .ImageHistory{
         opacity: 1;
     }
@@ -165,3 +155,9 @@
 .historySectionContainer.oldPath .nameHistory {
     color: #7D7D7D;
 }
+
+.historySectionContainer.notVisited {
+    background-color: transparent;
+    border: none;
+}
+
