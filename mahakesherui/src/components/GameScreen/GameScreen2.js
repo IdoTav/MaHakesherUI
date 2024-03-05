@@ -14,8 +14,8 @@ function GameScreen2() {
     const userName = useLocation().state.userName;
     const firstFigure = useLocation().state.firstFigure;
     const lastFigure = useLocation().state.lastFigure
+    console.log(useLocation().state.road);
     const navigate = useNavigate();
-    console.log(useLocation().state.road)
     const [figureToShow, setFigureToShow] = useState(firstFigure);
     const optionsList = ["Mentioned in same life time", "Mentioned in same verse", "Relations"];
     const [connectionList, setConnectionList] = useState([])
@@ -73,8 +73,6 @@ function GameScreen2() {
     const getOptions = async (personId = undefined) => {
         personId = personId ? personId : figureToShow[0];
         const optionsResponse = await apiFunction(apiConsts.Get, apiConsts.serverUrl + 'Connections/GetOptions?personid=' + personId);
-        console.log(personId)
-        console.log(optionsResponse)
         parseOptionsResponseIntoSections(JSON.parse(optionsResponse))
     }
 
@@ -82,16 +80,19 @@ function GameScreen2() {
         getOptions();
     }, [])
 
-    function handleClickOnConnectionFigure(e, figure) {
+    async function handleClickOnConnectionFigure(e, figure)  {
         e.preventDefault();
         if (figure[0] === lastFigure[0]) {
-            // win
-            setGameEnd(true)
+            console.log(historyLists);
+            const history = historyLists.map(history => history[3]);
+            const body = {UserName: userName, History: historyLists.map(history => history[3]).join('-')};
+            const historyToServer = await apiFunction(apiConsts.Post, apiConsts.serverUrl + 'Users/history', body);
+            setGameEnd(true);
             return
         }
 
         const copiedArray = [...historyLists];
-        if (copiedArray.length === 4 && copiedArray[copiedArray.length - 2][3] !== lastFigure[3]) {
+        if (copiedArray.length === 6 && copiedArray[copiedArray.length - 2][3] !== lastFigure[3]) {
             // start over
             copiedArray.splice(1, 2);
             figure = copiedArray[0];
@@ -100,7 +101,6 @@ function GameScreen2() {
             copiedArray.splice(historyLists.length - 1, 0, figure);
         }
 
-        console.log(copiedArray);
         setHistoryList(copiedArray);
         setFigureToShow(figure);
         setIsShowConnectionBlock(false);
@@ -149,7 +149,6 @@ function GameScreen2() {
             const numsToSplice = copiedArray.length - 1 - startToSplice
             copiedArray.splice(startToSplice, numsToSplice);
 
-            console.log(copiedArray);
             setHistoryList(copiedArray);
             setFigureToShow(figure);
             setIsShowConnectionBlock(false);
@@ -170,7 +169,6 @@ function GameScreen2() {
                 notMutualeItems.push(list[i])
             }
         }
-        console.log(notMutualeItems)
         return notMutualeItems
     }
 
@@ -179,7 +177,6 @@ function GameScreen2() {
     }, [fullOptions])
 
     function noCircle() {
-        console.log(relations)
         setRelations(checkMutuale(relations))
         setMentionedInLifeTime(checkMutuale(mentionedInLifeTime))
         setMentionedInSameVerse(checkMutuale(mentionedInSameVerse))
