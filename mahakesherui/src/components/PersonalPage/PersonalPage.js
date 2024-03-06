@@ -33,8 +33,10 @@ function PersonalPage() {
 
     const getHistory = async () => {
         const historyResponse = await apiFunction(apiConsts.Get, apiConsts.serverUrl + 'Users/history?userName=' + userName.name);
-        console.log(historyResponse);
-        setHistoryList(historyResponse.split("$$"));
+        console.log("historyResponse is:" + historyResponse);
+        if (historyResponse != 404) {
+            setHistoryList(historyResponse.split("$$"));
+        }
     }
 
     useEffect(() => {
@@ -60,7 +62,7 @@ function PersonalPage() {
                         </button>))}
                 </div>
             </div>
-            <button id="startButton2" onClick={() => navigate('/GeneratePage', {state : {userName : userName.name}})}>{PersonalPageConsts.startPlay}</button>
+            <button id="startButton2" onClick={() => navigate('/GeneratePage', { state: { userName: userName.name } })}>{PersonalPageConsts.startPlay}</button>
             {showHistory ?
                 <div className='historyArrowContainer'>
                     <span className='historySectionContainer'>
@@ -74,7 +76,7 @@ function PersonalPage() {
                             </span>
                             <span className='historySectionContainer'>
                                 <img className='ImageHistory' src={man} alt={`Man ${index}`} />
-                                <span className='nameHistory'>{peopleHistory[index + 1]}</span> 
+                                <span className='nameHistory'>{peopleHistory[index + 1]}</span>
                             </span>
                         </span>))}
                 </div>
