@@ -14,8 +14,6 @@ function PersonalPage() {
     const navigate = useNavigate();
     const userName = useLocation().state;
     const [historyList, setHistoryList] = useState([]);
-    const staticList = ["Abraham/is Connected To.Sarah/Apears In Book.Genisis/is Connected To.Daniel/is Connected To.Ido", "Abraham/is Connected To.Sarah/Apears In Book.Genisis"
-        , "Abraham/is Connected To.Sarah/Apears In Book.Genisis/is Connected To.Daniel/is Connected To.Issac", "Abraham/is Connected To.Sarah/is Connected To.Daniel", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac", "Abraham/isConnectedTo.Sarah/ApearsInBook.Genisis/isConnectedTo.Issac"];
     const [showHistory, setShowHistory] = useState(false);
     const [peopleHistory, setPeopleHistory] = useState([]);
 
@@ -33,7 +31,6 @@ function PersonalPage() {
 
     const getHistory = async () => {
         const historyResponse = await apiFunction(apiConsts.Get, apiConsts.serverUrl + 'Users/history?userName=' + userName.name);
-        console.log("historyResponse is:" + historyResponse);
         if (historyResponse != 404) {
             setHistoryList(historyResponse.split("$$"));
         }

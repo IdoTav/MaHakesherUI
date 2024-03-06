@@ -61,6 +61,35 @@ input::placeholder {
     transform: translateX(-50%);
 }
 
+#createAccountContainer1 {
+    position: absolute;
+    text-align: right;
+    bottom: 220px;
+    left: 625px;
+    color: red;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+}
+
+#createAccountContainer2 {
+    position: absolute;
+    text-align: right;
+    bottom: 220px;
+    left: 475px;
+    color: red;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+}
+
+
 #createAccount {
     color: #7D7D7D;
     font-size: 36px;

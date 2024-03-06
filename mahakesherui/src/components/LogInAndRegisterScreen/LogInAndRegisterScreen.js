@@ -11,6 +11,8 @@ function LogInAndRegisterScreen() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [errorToShow, setErrorToShow] = useState('');
+    const [isShowError, setIsShowError] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const props = useLocation().state
 
@@ -18,8 +20,8 @@ function LogInAndRegisterScreen() {
         setIsPasswordVisible(!isPasswordVisible);
     };
 
-    function checkIfuserAndPassword(response) {
-        return (response !== apiConsts.responseNotFound && response !== undefined) ? true : false;
+    function checkIfUserAndPassword(response) {
+        return (response !== apiConsts.responseNotFound && response !== undefined && response !== apiConsts.responseBadRequest) ? true : false;
     }
 
     const handleLogInButtonClick = async (e) => {
@@ -27,8 +29,10 @@ function LogInAndRegisterScreen() {
         const body = { UserName: userName, Password: password }
         const serverUrl = props.title === LogInAndRegisterScreenConsts.LogIn ? apiConsts.serverUrl + apiConsts.SignIn : apiConsts.serverUrl + apiConsts.register;
         let requestResponse = await apiFunction(apiConsts.Post, serverUrl, body);
-        if (checkIfuserAndPassword(requestResponse))
+        if (checkIfUserAndPassword(requestResponse))
             navigate('/PersonalPage', { state: { name: userName } });
+        setIsShowError(true);
+        setErrorToShow(props.title === LogInAndRegisterScreenConsts.LogIn ? "User name or password are incorrect" : "User already exists");
     };
 
 
@@ -36,6 +40,7 @@ function LogInAndRegisterScreen() {
         e.preventDefault();
         setUserName('');
         setPassword('');
+        setIsShowError(false);
         if (props.title === LogInAndRegisterScreenConsts.LogIn)
             navigate('/Register', { state: { title: 'Register', createOrAlreadyHaveAcc: 'Press here to if you already have an account' } });
         else
@@ -54,6 +59,10 @@ function LogInAndRegisterScreen() {
                     </span>
                 </div>
             </div>
+            {isShowError ?
+            <div id="createAccountContainer2" style={{color: "red"}}>
+                {errorToShow}
+            </div> : ""}
             <div id="createAccountContainer">
                 <p id="createAccount" onClick={handleCreateAccountClick}>
                     {props.createOrAlreadyHaveAcc}

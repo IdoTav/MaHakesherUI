@@ -12,14 +12,29 @@
 
 .optionsContainer {
     position: absolute;
-    width: 700px;
+    width: 449px;
     top: 70px;
     margin-left: 15px;
 }
 
-.options {
-    width: auto;
+.options0 {
+    width: 449px;
+    height: 47px;
+    margin-bottom: 25px;
 }
+
+.options1 {
+    width: 412px;
+    height: 47px;
+    margin-bottom: 25px;
+}
+
+.options2 {
+    width: 175px;
+    height: 47px;
+    margin-bottom: 25px;
+}
+
 
 .optionSelected {
     align-self: center;

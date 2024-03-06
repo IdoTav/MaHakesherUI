@@ -194,7 +194,7 @@ function GameScreen2() {
                 </span>
                 <span className='optionsContainer' >
                     {optionsList.map((item, index) => (
-                        <div className='options' key={index} onClick={e => handleClickOnConnection(e)}>
+                        <div className={'options'+ index} key={index} onClick={e => handleClickOnConnection(e)}>
                             <button className='optionSelected'>{item}</button>
                         </div>))}
                 </span>
