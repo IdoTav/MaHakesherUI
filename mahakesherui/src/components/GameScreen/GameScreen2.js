@@ -92,9 +92,10 @@ function GameScreen2() {
         }
 
         const copiedArray = [...historyLists];
-        if (copiedArray.length === 6 && copiedArray[copiedArray.length - 2][3] !== lastFigure[3]) {
+        if (copiedArray.length === 5 && copiedArray[copiedArray.length - 2][3] !== lastFigure[3]) {
             // start over
-            copiedArray.splice(1, 2);
+            copiedArray.splice(1, copiedArray.length - 2);
+            console.log(copiedArray)
             figure = copiedArray[0];
             setStartOver(true)
         } else {
