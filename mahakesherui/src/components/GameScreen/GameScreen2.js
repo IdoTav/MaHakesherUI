@@ -79,6 +79,7 @@ function GameScreen2() {
         personId = personId ? personId : figureToShow[0];
         const optionsResponse = await apiFunction(apiConsts.Get, apiConsts.serverUrl + 'Connections/GetOptions?personid=' + personId);
         parseOptionsResponseIntoSections(JSON.parse(optionsResponse))
+        console.log(JSON.parse(optionsResponse))
     }
 
     useEffect(() => {
@@ -152,13 +153,14 @@ function GameScreen2() {
     }
 
     function findPersonForHint() {
-        const indexOfMySelf = historyLists.indexOf(figureToShow[3]);
+        const newHistory = historyLists.map(history => history[3]);
+        const indexOfMySelf = newHistory.indexOf(figureToShow[3]);
         const roadForHint = road.map(road => road[3]);
-        for(let i = indexOfMySelf; i = 0; i--) {
-            if(roadForHint.includes(historyLists[i][3]))
-                return historyLists[i][3];
+        for(let i = indexOfMySelf; i >= 0; i--) {
+            if(roadForHint.includes(newHistory[i]))
+                return newHistory[i];
         }
-        return historyLists[0][3];
+        return newHistory[0];
     }
 
     function onHintClick(e) {

@@ -20,6 +20,8 @@ function GameScreen() {
     const [firstFigure, setFirstFigure] = useState('');
     const [lastFigure, setLastFigure] = useState('');
     const [road, setRoad] = useState([]);
+    const [validator, setValidator] = useState(false);
+    const [validator2, setValidator2] = useState(false);
     
 
     const getRoad = async () => {
@@ -42,14 +44,16 @@ function GameScreen() {
         getRoad();
     }, [])
 
-    function activateImage(e, figure, circle) {
+    function activateImage(e, figure, circle, validator) {
         e.preventDefault();
         figure('block');
         circle(false);
+        validator(true);
     }
 
     function handleContiuneButton(e) {
         e.preventDefault();
+        if(validator && validator2) {
         navigate('/GameScreen', { state:
              { firstFigure: firstFigure,
                 lastFigure: lastFigure,
@@ -57,6 +61,7 @@ function GameScreen() {
                 road: road
             } 
         });
+    }
     }
 
 
@@ -69,7 +74,7 @@ function GameScreen() {
                     <div className='figure'>Figure 1</div>
                     {isCircle1 ? <div className='circle'></div> : <img className='generateImage' src={firstFigure[2] === 'male' ? man : female}></img>}
                     <div className='nameOfFigure' style={{display : isHiddenFigure1}}>{firstFigure[3]}</div>
-                    <button onClick={e => activateImage(e, setIsHiddenFigure1, setIsCircle1)} className='generateButton'>Generate</button>
+                    <button onClick={e => activateImage(e, setIsHiddenFigure1, setIsCircle1, setValidator)} className='generateButton'>Generate</button>
                 </span>
                 <span className='GenerateCoulumn1'>
                     <img className='arrowGenerate' src={arrow}></img>
@@ -78,7 +83,7 @@ function GameScreen() {
                     <div className='figure'>Figure 2</div>
                     {isCircle2 ? <div className='circle'></div> : <img className='generateImage' src={lastFigure[2] === 'male' ? man : female}></img>}
                     <div className='nameOfFigure' style={{display : isHiddenFigure2}}>{lastFigure[3]}</div>
-                    <button onClick={e => activateImage(e, setIsHiddenFigure2, setIsCircle2)} className='generateButton'>Generate</button>
+                    <button onClick={e => activateImage(e, setIsHiddenFigure2, setIsCircle2, setValidator2)} className='generateButton'>Generate</button>
                 </span>
             </div>
             <button onClick={e => handleContiuneButton(e)} className='continueButton'>Continue</button>
