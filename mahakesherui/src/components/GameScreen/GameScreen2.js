@@ -9,12 +9,15 @@ import arrow from '../../images/arrow.png';
 import apiFunction from '../../api/api';
 import apiConsts from '../../api/ApiConsts';
 import hint from '../../images/hint_icon.png';
+import x from '../../images/x.png';
+
 
 function GameScreen2() {
     const userName = useLocation().state.userName;
     const firstFigure = useLocation().state.firstFigure;
-    const lastFigure = useLocation().state.lastFigure
-    console.log(useLocation().state.road);
+    const lastFigure = useLocation().state.lastFigure;
+    const road = useLocation().state.road;
+    console.log(road);
     const navigate = useNavigate();
     const [figureToShow, setFigureToShow] = useState(firstFigure);
     const optionsList = ["Mentioned in same life time", "Mentioned in same verse", "Relations"];
@@ -27,7 +30,9 @@ function GameScreen2() {
     const [clickedButton, setClickedButton] = useState('');
     const [startOver, setStartOver] = useState(false);
     const [gameEnd, setGameEnd] = useState(false);
-    const [fullOptions, setFullOptions] = useState([])
+    const [fullOptions, setFullOptions] = useState([]);
+    const [isHint, setIsHint] = useState(false);
+    const [hintToShow, setHintToShow] = useState('');
 
     function handleBackButton(e) {
         e.preventDefault();
@@ -80,12 +85,14 @@ function GameScreen2() {
         getOptions();
     }, [])
 
-    async function handleClickOnConnectionFigure(e, figure)  {
+    async function handleClickOnConnectionFigure(e, figure) {
         e.preventDefault();
+        setIsHint(false);
+        setHintToShow('');
         if (figure[0] === lastFigure[0]) {
             console.log(historyLists);
             const history = historyLists.map(history => history[3]);
-            const body = {UserName: userName, History: historyLists.map(history => history[3]).join('-')};
+            const body = { UserName: userName, History: historyLists.map(history => history[3]).join('-') };
             const historyToServer = await apiFunction(apiConsts.Post, apiConsts.serverUrl + 'Users/history', body);
             setGameEnd(true);
             return
@@ -127,6 +134,8 @@ function GameScreen2() {
 
     function handleClickOnConnection(e) {
         e.preventDefault();
+        setIsHint(false);
+        setHintToShow('');
         setIsShowConnectionBlock(true);
         if (e.target.textContent === 'Relations') {
             setConnectionList(relations);
@@ -142,7 +151,34 @@ function GameScreen2() {
         }
     }
 
+    function findPersonForHint() {
+        const indexOfMySelf = historyLists.indexOf(figureToShow[3]);
+        const roadForHint = road.map(road => road[3]);
+        for(let i = indexOfMySelf; i = 0; i--) {
+            if(roadForHint.includes(historyLists[i][3]))
+                return historyLists[i][3];
+        }
+        return historyLists[0][3];
+    }
+
+    function onHintClick(e) {
+        e.preventDefault();
+        setIsShowConnectionBlock(false);
+        setIsHint(true);
+        const roadForHint = road.map(road => road[3]);
+        if (roadForHint.includes(figureToShow[3])) {
+            const index = roadForHint.indexOf(figureToShow[3])
+            setHintToShow(figureToShow[3] + ' - ' + roadForHint[index + 1]);
+            return;
+        }
+        const figureForHint =  findPersonForHint();
+        const desPerson = roadForHint.indexOf(figureForHint);
+        setHintToShow(figureForHint + ' - ' + roadForHint[desPerson + 1]);
+    }
+
     function handleClickOnHistoryConnection(e, figure, index) {
+        setIsHint(false);
+        setHintToShow('');
         if (!(index > historyLists.length - 2)) {
             e.preventDefault();
             const copiedArray = [...historyLists];
@@ -173,7 +209,7 @@ function GameScreen2() {
         return notMutualeItems
     }
 
-    useEffect (() => {
+    useEffect(() => {
         noCircle()
     }, [fullOptions])
 
@@ -181,6 +217,11 @@ function GameScreen2() {
         setRelations(checkMutuale(relations))
         setMentionedInLifeTime(checkMutuale(mentionedInLifeTime))
         setMentionedInSameVerse(checkMutuale(mentionedInSameVerse))
+    }
+
+    function closeHint(e) {
+        e.preventDefault();
+        setIsHint(false);
     }
 
     return (
@@ -195,12 +236,12 @@ function GameScreen2() {
                 </span>
                 <span className='optionsContainer' >
                     {optionsList.map((item, index) => (
-                        <div className={'options'+ index} key={index} onClick={e => handleClickOnConnection(e)}>
+                        <div className={'options' + index} key={index} onClick={e => handleClickOnConnection(e)}>
                             <button className='optionSelected'>{item}</button>
                         </div>))}
                 </span>
             </div>
-            <div className='hintBlock'>
+            <div className='hintBlock' onClick={onHintClick}>
                 <img className='hint' src={hint}></img>
             </div>
             <div className='historyArrowContainer'>
@@ -239,6 +280,13 @@ function GameScreen2() {
                 <div className='popup'>
                     <div className='popupTitle'>YOU WIN!</div>
                 </div> : ""}
+
+            {isHint ?
+                <div className='popup1'>
+                    <img src={x} className='closeButton' onClick={closeHint}></img>
+                    <div className='popupTitle1'>Hint</div>
+                    <div className='popUpText1'>{hintToShow}</div>
+                </div> : ''}
         </div>
     );
 };
